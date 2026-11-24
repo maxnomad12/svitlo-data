@@ -22,7 +22,7 @@ jobs:
       - name: Keep the last good files if a source fails
         run: |
           mkdir -p public
-          for f in kyiv.json kyiv-oblast.json kyiv-oblast-streets.json; do
+          for f in kyiv.json kyiv-oblast.json kyiv-oblast-streets.json odesa.json odesa-streets.json dnipro.json dnipro-streets.json; do
             curl -fsSL "https://maxnomad12.github.io/svitlo-data/$f" -o "public/$f" || true
           done
       - run: node fetch.mjs
