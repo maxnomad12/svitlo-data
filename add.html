@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Адреса для «Коли буде світло»</title>
+<meta name="description" content="Сусід поділився адресою: графік відключень світла для твого будинку.">
+<style>
+:root{--bg:#FFF4D6;--fg:#1A1E1C;--muted:#5B5446;--card:#FFFBEF;--line:#D9CDAE;--accent:#1F7A45}
+@media (prefers-color-scheme: dark){:root{--bg:#1C2638;--fg:#F2F5F9;--muted:#B9C3D1;--card:#26324A;--line:#43516A;--accent:#4FD186}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--fg);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:flex;justify-content:center}
+main{width:100%;max-width:440px;padding:40px 16px}
+.bolt{width:64px;height:64px;border-radius:16px;background:#F5C430;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+h1{font-size:15px;font-weight:700;color:var(--accent);margin:0 0 8px}
+.addr{font-size:30px;font-weight:800;letter-spacing:-.01em;margin:0}
+.place{color:var(--muted);margin:4px 0 14px}
+.group{display:inline-block;font-weight:700;padding:6px 12px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+p.note{color:var(--muted);font-size:14px;margin:18px 0 24px}
+a.btn{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:14px;font-weight:700;text-decoration:none;margin-bottom:10px}
+a.primary{background:var(--fg);color:var(--bg)}
+a.secondary{border:1px solid var(--line);color:var(--fg)}
+a.btn:focus-visible{outline:3px solid #F5C430;outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<div class="bolt" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="#1A1E1C"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
+<h1>Сусід поділився адресою</h1>
+<p class="addr" id="addr">Коли буде світло</p>
+<p class="place" id="place"></p>
+<span class="group" id="group" hidden></span>
+<p class="note">Відкрий у застосунку «Коли буде світло» — адреса додасться з групою, і ти бачитимеш графік, віджети та сповіщення для цього будинку. Застосунок безкоштовний.</p>
+<a class="btn primary" id="open" href="#">Відкрити в застосунку</a>
+<a class="btn secondary" href="https://apps.apple.com/ua/app/id6830176172">Завантажити в App Store</a>
+</main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var s = q.get('s') || '', h = q.get('h') || '', g = q.get('g') || '', c = q.get('c') || '';
+  var short = s.replace(/^(вул\.|просп\.|пров\.|бульв\.|пл\.|наб\.)\s*/, '');
+  if (short && h) document.getElementById('addr').textContent = short + ', ' + h;
+  document.getElementById('place').textContent = c ? c + ' · Київщина' : (s ? 'Київ' : '');
+  if (/^\d{1,2}\.\d$/.test(g)) { var el = document.getElementById('group'); el.textContent = 'Група ' + g; el.hidden = false; }
+  var app = 'svitlo://add' + location.search;
+  document.getElementById('open').setAttribute('href', app);
+})();
+</script>
+</body>
+</html>

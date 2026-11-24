@@ -54,5 +54,6 @@ for (const src of SOURCES) {
   console.log('ok', src.source, out.updated, out.days.length, 'days');
 }
 await browser.close();
+if (fs.existsSync('add.html')) fs.copyFileSync('add.html', 'public/add.html');
 fs.writeFileSync('public/index.html', '<meta charset="utf-8"><p>Дані для застосунку «Коли буде світло»: <a href="kyiv.json">kyiv.json</a> (dtek-kem.com.ua), <a href="kyiv-oblast.json">kyiv-oblast.json</a> (dtek-krem.com.ua).</p>');
 if (okCount === 0) process.exit(1);
