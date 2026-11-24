@@ -22,6 +22,12 @@ jobs:
         with: { node-version: 20 }
       - run: npm install --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
+      - name: Keep the last good files if a source fails
+        run: |
+          mkdir -p public
+          for f in kyiv.json kyiv-oblast.json kyiv-oblast-streets.json; do
+            curl -fsSL "https://maxnomad12.github.io/svitlo-data/$f" -o "public/$f" || true
+          done
       - run: node fetch.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
